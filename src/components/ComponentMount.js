@@ -6,6 +6,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
+const API_PACEHOLDER = process.env.REACT_APP_API_PLACEHOLDER;
+
 // export default class ComponentMount extends Component {
 //     constructor(props){
 //         super(props);
@@ -57,7 +59,7 @@ export default class ComponentMount extends Component {
 
     componentDidMount = () => {
         axios
-        .get("https://jsonplaceholder.typicode.com/users")
+        .get(`${API_PACEHOLDER}/users/${id}/posts`)
         .then(response => {
             this.setState({data: response.data});
         })

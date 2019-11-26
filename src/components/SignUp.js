@@ -2,6 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { Formik, ErrorMessage } from "formik";
 import { validationForm } from "../validate";
+import axios from 'axios';
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -57,9 +58,20 @@ function SignUp(props) {
                         password: ""
                     }}
                     validate={validationForm}
-                    onSubmit={(values, { setSubmitting }) => {
-                        localStorage.setItem("user", JSON.stringify(values));
-                        props.history.push("/signin");
+                    onSubmit={values => {
+                        axios
+                        .post("http://localhost:5000", values)
+                        .then(response => {
+                            console.log(response);
+                            
+                            if (response.status === 201){
+                                localStorage.setItem(
+                                    "user",
+                                    JSON.stringify(response.data.data)
+                                );
+                                props.history.push("/signin");
+                            }
+                        });
                     }}
                 >
                     {({

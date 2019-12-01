@@ -4,7 +4,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import {Home, About, Contact, Users, NestedUser, Header, SignIn, SignUp} from "./components"
+import {Home, About, Contact, Users, NestedUser, Header, SignIn, SignUp, Todo, TodoMongoose} from "./components"
 
 function App() {
   return (
@@ -17,6 +17,9 @@ function App() {
           <Route path="/contact">
             <Contact />
           </Route>
+          <Route path="/todo/mongo/:email">
+            <Todo/>
+          </Route>
           <Route path="/" exact={true}>
             <Home />
           </Route>
@@ -28,6 +31,9 @@ function App() {
           </Route>
           <Route path="/signin">
             <SignIn />
+          </Route>
+          <Route path="/todo/mongoose">
+            <TodoMongoose />
           </Route>
           <Route path="/signup">
             <SignUp />

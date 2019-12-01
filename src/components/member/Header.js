@@ -7,6 +7,8 @@ function Header(props) {
         
         props.history.push("/signin");
     };
+
+    const user = JSON.parse(localStorage.getItem("user"));
     return (
         <nav>
             <ul
@@ -24,6 +26,12 @@ function Header(props) {
                 </li>
                 <li style={{ margin: "0 10px" }}>
                     <Link to="/contact">Contact</Link>
+                </li>
+                <li style={{ margin: "0 10px" }}>
+                    <Link to={`/todo/mongo/${user.email}`}>Todo Mongo</Link>
+                </li>
+                <li style={{ margin: "0 10px" }}>
+                    <Link to={`/todo/mongoose`}>Todo Mongoose</Link>
                 </li>
                 <li style={{ margin: "0 10px" }}>
                     <Link to="/users">Users</Link>

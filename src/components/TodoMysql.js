@@ -13,13 +13,14 @@ import { Formik, ErrorMessage } from "formik";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 
-const API = process.env.REACT_APP_API_LIVE;
+const API = process.env.REACT_APP_API_LIVE_THREE;
 
-export default class Todo extends Component {
+export default class TodoMongoose extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            id: "",
             todos: [],
             edit: false,
             todo: ""
@@ -30,7 +31,7 @@ export default class Todo extends Component {
         const user = JSON.parse(localStorage.getItem("user"));
 
         axios
-            .get(`${API}/todo/email/${user.email}`)
+            .get(`${API}/todos/${user.firstName}`)
             .then(response => {
                 this.setState({ todos: response.data.data });
             })
@@ -45,7 +46,7 @@ export default class Todo extends Component {
 
     deleteOne = id => {
         axios
-            .delete(`${API}/todo/${id}`)
+            .delete(`${API}/todos/${id}`)
             .then(response => {
                 if (response.status === 200) {
                     Swal.fire(
@@ -61,15 +62,18 @@ export default class Todo extends Component {
     };
 
     addOne = values => {
+        console.log(values);
+
         const user = JSON.parse(localStorage.getItem("user"));
         axios
-            .post(`${API}/todo`, {
+            .post(`${API}/todos`, {
                 ...values,
                 name: user.firstName,
                 email: user.email
+
             })
             .then(response => {
-                if (response.status === 201) {
+                if (response.status === 200) {
                     Swal.fire("Added!", `Your new todo is added`, "success");
                     this.fetch();
                 }
@@ -77,22 +81,29 @@ export default class Todo extends Component {
     };
 
     editOne = id => {
+        console.log(id);
         this.setState({id: id})
+
         this.setState({ edit: true });
 
-        axios.get(`${API}/todo/${id}`).then(response => {
+        axios.get(`${API}/todos/${id}`).then(response => {
+            console.log(response.data.data.todo);
+
             this.setState({ todo: response.data.data.todo });
         });
     };
 
     updateOne = values => {
+        console.log(values);
+
+
         axios
-            .put(`${API}/todo/${this.state.id}`, {
+            .put(`${API}/todos/${this.state.id}`, {
                 ...values
             })
             .then(response => {
                 if (response.status === 200) {
-                    Swal.fire("Added!", `Your new todo is added`, "success");
+                    Swal.fire("Added!", `Your todo is Update`, "success");
                     this.fetch();
                 }
             });
@@ -191,12 +202,12 @@ export default class Todo extends Component {
                                             />
                                             <EditIcon
                                                 onClick={() => {
-                                                    this.editOne(item._id);
+                                                    this.editOne(item.id);
                                                 }}
                                             />
                                             <DeleteIcon
                                                 onClick={() =>
-                                                    this.deleteOne(item._id)
+                                                    this.deleteOne(item.id)
                                                 }
                                             />
                                         </ListItem>

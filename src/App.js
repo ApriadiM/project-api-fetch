@@ -4,7 +4,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import {Home, About, Contact, Users, NestedUser, Header, SignIn, SignUp, Todo, TodoMongoose} from "./components"
+import {Home, About, Contact, Users, NestedUser, Header, SignIn, SignUp, Todo, TodoMongoose, TodoMysql} from "./components"
 
 function App() {
   return (
@@ -34,6 +34,9 @@ function App() {
           </Route>
           <Route path="/todo/mongoose">
             <TodoMongoose />
+          </Route>
+          <Route path="/todo/mysql/">
+            <TodoMysql />
           </Route>
           <Route path="/signup">
             <SignUp />

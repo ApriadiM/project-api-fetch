@@ -34,6 +34,9 @@ function Header(props) {
                     <Link to={`/todo/mongoose`}>Todo Mongoose</Link>
                 </li>
                 <li style={{ margin: "0 10px" }}>
+                    <Link to={`/todo/mysql/${user.firstName}`}>Todo Mysql</Link>
+                </li>
+                <li style={{ margin: "0 10px" }}>
                     <Link to="/users">Users</Link>
                 </li>
                 <li style={{ margin: "0 10px" }}>
